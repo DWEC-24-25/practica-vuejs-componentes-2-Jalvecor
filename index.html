@@ -18,9 +18,22 @@
     <body>
 
         <h1 id="autor">Autor: Daniel Alcaraz Baixauli</h1>
+        <h1 id="autor">Autor: Daniel Alcaraz Baixauli</h1>
 
         <!-- https://vuejs.org/guide/introduction.html -->
         <div id="app">
+          <div class="jumbotron jumbotron-fluid bg-secondary bg-opacity-25">
+            <h1  id = "title" class="p-5" >{{col.title}}</h1>
+        </div>
+        <div class="container mt-5">
+          <div class="row ">
+              <div class="col-sm-4 p-0 "  v-for="item in col.items" >
+                  <div class="card  h-100">
+                    <item-data :item="item"></item-data>
+                  </div>
+              </div>
+          </div>
+      </div>
             <!--
                  TODO: Aplicación Vue 3. Ver archivo ./js/script.js
                - Mostrar el título de la colección dentro de un componente de Bootstrap 5. 
@@ -29,6 +42,7 @@
                  - Crear un componente item-data
             -->
 
+
             <!-- TODO: Mostrar el título de la colección dentro de un contenedor de Bootstrap 5 -->
             
 
@@ -36,8 +50,8 @@
             
 
         </div>
-
-        <!-- TODO: Cargar librería Vue 3 y archivo js/script.js -->
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="js/script.js"></script>
         
 
     </body>
