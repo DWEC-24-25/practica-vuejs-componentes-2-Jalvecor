@@ -44,7 +44,25 @@ const EditForm = defineComponent({
     template: `
         <div>
             <h2>Edit Form</h2>
-            <!-- Aquí iría el formulario de edición -->
+             <form>
+              <div class="form-control">
+                  <label for="descripcion">Descripción</label>
+                  <input type="text" name="descripcion" id="descripcion">
+              </div>
+              <div class="form-control">
+                  <label for="valor">Valor</label>
+                  <input type="number" step="0.01" name="valor" id="valor">
+              </div>
+              <div class="form-control">
+                  <label for="fecha">Fecha</label>
+                  <input type="date" name="fecha" id="fecha">
+              </div>
+              <div class="form-control">
+                  <label for="etiquetas">Etiquetas</label>
+                  <input type="text" name="etiquetas" id="etiquetas">
+              </div>
+              <button type="submit">Enviar</button>
+          </form>
         </div>
     `
 });
@@ -57,14 +75,28 @@ const ItemData = defineComponent({
             required: true
         }
     },
+    data(){
+        return{
+            editando:false
+        }
+    },
+    methods:{
+        toggleEditFormVisibility(){
+            this.editando = !this.editando;
+        }
+    },
     template: `
-        <div>
+        <div v-if="!editando">
             <p><strong>Name </strong> </p>
             <h3> {{ item.data.find(d => d.name === 'name').value }}</h3>
             <p> <strong>Description </strong> <br>{{ item.data.find(d => d.name === 'description').value }}</p>
             <p><strong>Director </strong> <br> {{ item.data.find(d => d.name === 'director').value }}</p>
             <p><strong>Release Date:</strong> <br>{{ item.data.find(d => d.name === 'datePublished').value }}</p>
             <a :href="item.href" target="_blank" class="btn btn-primary">Ver</a>
+            <button @click="toggleEditFormVisibility" target="_blank" class="btn btn-secondary ms-2">Editar</button>
+        </div>
+        <div v-else>
+        <edit-form @closeEdit="toggleEditFormVisibility" />
         </div>
     `
 });
