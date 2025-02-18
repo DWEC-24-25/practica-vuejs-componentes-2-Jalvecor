@@ -41,31 +41,20 @@ const server_data = {
 
 // Componente edit-form
 const EditForm = defineComponent({
+    props: ['itemdata'],
     template: `
-        <div>
-            <h2>Edit Form</h2>
-             <form>
-              <div class="form-control">
-                  <label for="descripcion">Descripción</label>
-                  <input type="text" name="descripcion" id="descripcion">
-              </div>
-              <div class="form-control">
-                  <label for="valor">Valor</label>
-                  <input type="number" step="0.01" name="valor" id="valor">
-              </div>
-              <div class="form-control">
-                  <label for="fecha">Fecha</label>
-                  <input type="date" name="fecha" id="fecha">
-              </div>
-              <div class="form-control">
-                  <label for="etiquetas">Etiquetas</label>
-                  <input type="text" name="etiquetas" id="etiquetas">
-              </div>
-              <button type="submit">Enviar</button>
-          </form>
-        </div>
-    `
+        <h2>Edit form</h2>
+<form>
+    <div v-for="item in itemdata" >
+      <label>{{ item.prompt }}</label>
+      
+      <textarea v-if="item.prompt === 'Description'" v-model="item.value" class="form-control"></textarea>
+      <input v-else v-model="item.value" type="text" class="form-control" />
+    </div>
+    <button @click="$emit('formClosed')" class="btn btn-secondary ms-2">Cerrar</button>
+  </form>`
 });
+
 
 // Componente item-data
 const ItemData = defineComponent({
@@ -93,11 +82,10 @@ const ItemData = defineComponent({
             <p><strong>Director </strong> <br> {{ item.data.find(d => d.name === 'director').value }}</p>
             <p><strong>Release Date:</strong> <br>{{ item.data.find(d => d.name === 'datePublished').value }}</p>
             <a :href="item.href" target="_blank" class="btn btn-primary">Ver</a>
-            <button @click="toggleEditFormVisibility" target="_blank" class="btn btn-secondary ms-2">Editar</button>
+                <button @click="toggleEditFormVisibility" class="btn btn-secondary ms-2">Editar</button>
         </div>
-        <div v-else>
-        <edit-form @closeEdit="toggleEditFormVisibility" />
-        </div>
+     <edit-form v-else :itemdata="item.data" @formClosed="toggleEditFormVisibility"></edit-form>
+
     `
 });
 
