@@ -77,7 +77,6 @@ const ItemData = defineComponent({
     template: `
         <div v-if="!editando">
             <p><strong>{{ item.data.find(d => d.prompt === 'Name').prompt }}</strong> </p>
-
             <h3> {{ item.data.find(d => d.name === 'name').value }}</h3>
             <p> <strong>{{ item.data.find(d => d.name === 'description').prompt}}</strong> <br>{{ item.data.find(d => d.name === 'description').value }}</p>
             <p><strong>{{ item.data.find(d => d.name === 'director').prompt }} </strong> <br> {{ item.data.find(d => d.name === 'director').value }}</p>
